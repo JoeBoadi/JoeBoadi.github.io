@@ -1,0 +1,146 @@
+var graph = Viva.Graph.graph ();
+/*nodePositions = [{
+  x: 0,
+  y: 0
+}, {
+  x: 0,
+  y: 0
+}, {
+  x: 0,
+  y: 0
+}, {
+  x: 0,
+  y: -50
+}, {
+  x: 0,
+  y: -75
+}, {
+  x: 0,
+  y: -100
+}, {
+  x: 0,
+  y: -25
+}, {
+  x: 0,
+  y: 0
+}];*/
+
+
+var firstNode = graph.addNode(1, '')
+firstNode.isPinned = true;
+graph.addNode(2, '');
+graph.addNode(3, '');
+graph.addNode(4, '');
+graph.addNode(5, '');
+graph.addNode(6, '');
+
+graph.addNode(7, '');
+graph.addNode(8, '');
+graph.addNode(9, '');
+graph.addNode(10, '');
+graph.addNode(11, '');
+graph.addNode (12, '');
+graph.addNode (13, '');
+
+
+graph.addLink(1, 2);
+graph.addLink(2, 3);
+graph.addLink(1, 4);
+graph.addLink(4, 5);
+graph.addLink(5, 6);
+graph.addLink(4, 7);
+graph.addLink(7, 8);
+graph.addLink(8, 9);
+graph.addLink(9, 10);
+graph.addLink(10,11);
+graph.addLink(13, 12);
+graph.addLink(12, 5);
+
+var graphics = Viva.Graph.View.svgGraphics();
+var nodeSize = 40;
+var no = 20;
+ 
+//I have to check whether I can use the text line or jquery to show the necessary data from the law data
+
+   highlightRelatedNodes = function(nodeId, isOn) {
+                   // just enumerate all realted nodes and update link color:
+                   graph.forEachLinkedNode(nodeId, function(node, link){
+                       var linkUI = graphics.getLinkUI(link.id);
+                       if (linkUI) {
+                           // linkUI is a UI object created by graphics below
+                           linkUI.attr('stroke', isOn ? 'red' : 'gray');
+                       }
+                   });
+                };
+            // Since we are using SVG we can easily subscribe to any supported
+            // events (http://www.w3.org/TR/SVG/interact.html#SVGEvents ),
+            // including mouse events:
+          
+ graphics.node(function(node) {
+
+
+                var ui = Viva.Graph.svg('image')
+                     .attr('width', nodeSize)
+                     .attr('height', nodeSize)
+                     .link('http://www.clipartkid.com/images/131/blue-circle-h0HTbH-clipart.png' + node.data);
+			
+		//var ui = Viva.Graph.svg('text')
+			//.attr('width', nodeSize)
+			//.attr ('height', nodeSize)
+			//.text ('COME' + node.data);
+
+		//	text = Viva.Graph.svg ('text').text('come').attr('width' , node.data.size).attr('height', node.data.size).attr("id", '1');*/
+                $(ui).hover(function() { // mouse over
+                    highlightRelatedNodes(node.id, true);
+                }, function() { // mouse out
+                    highlightRelatedNodes(node.id, false);
+                });
+                return ui;
+            }).placeNode(function(nodeUI, pos) {
+                nodeUI.attr('x', pos.x - nodeSize / 2).attr('y', pos.y - nodeSize / 2);
+            });
+            graphics.link(function(link){
+                return Viva.Graph.svg('path')
+                              .attr('stroke', 'gray');
+            }).placeLink(function(linkUI, fromPos, toPos) {
+                var data = 'M' + fromPos.x + ',' + fromPos.y +
+                           'L' + toPos.x + ',' + toPos.y;
+                linkUI.attr("d", data);
+            })
+
+
+
+
+/*graphics.node(function(node) {
+  if (node.id == 1 || node.id == 7 || node.id == 4 || node.id == 12) {
+    var ui = Viva.Graph.svg('g'),
+     text = Viva.Graph.svg ('text').text('come').attr('width' , node.data.size).attr('height', node.data.size).attr("id", '1'),
+	img = Viva.Graph.svg('image').attr('width', 50).attr('height',50).link('https://www.cogenhr.com/development/wp-content/uploads/2015/03/Red-circle-transparent-1024x1006.png' + node.data);
+    ui.append(text); 
+    ui.append(img); 
+    ui.myCustomSize = node.data.size;
+	 $(ui).click(function() {
+                                getProperties (node.id, true);
+        });
+    return ui;
+  } else {
+    var ui = Viva.Graph.svg('g'),
+      text = Viva.Graph.svg('text').text(node.data).attr('width', node.data.size).attr('height', node.data.size).attr("id", '2'),
+      img = Viva.Graph.svg('image').attr('width', 50).attr('height',50).link('https://upload.wikimedia.org/wikipedia/commons/8/8e/Pan_Blue_Circle.png' + node.data);
+    ui.append(text);
+    ui.append(img);
+    ui.myCustomSize = node.data.size;
+    //pinNode(1, !layout.isNodePinned(node));
+    return ui;
+  }
+	
+}).placeNode(function(nodeUI, pos) {
+  nodeUI.attr('transform', 'translate(' + (pos.x) + ',' + (pos.y) + ')');
+});
+ */             
+              
+var renderer = Viva.Graph.View.renderer(graph, {
+  graphics: graphics
+});
+
+renderer.run();

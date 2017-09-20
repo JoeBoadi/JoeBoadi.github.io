@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel = "stylesheet" href = "/static/style.css">
+<link rel = "stylesheet" href = "style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -19,20 +19,25 @@ $(document).ready(function(){
     $("#btn2").click(function(){
         alert("HTML: " + $("#test").html());
     });
+   
 });
 </script> 
 <style>
 	#panel, #flip {
     padding: 5px;
     text-align: center;
-    background-color: #e5eecc;
+    background-color: #e5eece;
     border: solid 0.5px #c3c3c3;
 }
 
 	#panel {
     padding: 40px;
+	margin: 50px;
     display: none;
 }
+</style>
+<style>
+	body {background-color: #F0EDED; }
 </style>
 </head>
 <body>
@@ -44,8 +49,8 @@ $(document).ready(function(){
 <button id="btn1">Show Text</button>
 <button id="btn2">Show HTML</button>
 
-<script src="/static/vivagraph.js"></script>
-<script src="/static/third.js"></script>
+<script src= "vivagraph.js "></script>
+<script src="first.js"></script>
 
 
 </body>
