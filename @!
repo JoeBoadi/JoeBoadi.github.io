@@ -26,26 +26,37 @@ var graph = Viva.Graph.graph ();
 }];*/
 
 
-var firstNode = graph.addNode(1, '')
+var firstNode = graph.addNode(1, {url:'http://www.clipartkid.com/images/131/blue-circle-h0HTbH-clipart.png'})
 firstNode.isPinned = true;
-graph.addNode(2, '');
-graph.addNode(3, '');
-graph.addNode(4, '');
-graph.addNode(5, '');
-graph.addNode(6, '');
-
+graph.addNode(2, {url : 'file:///home/joeboadi/Desktop/Interdisciplinary_Project/JoeBoadi.github.io/img/red_circle.png'} );
+graph.addNode(3, {url: 'http://www.clipartkid.com/images/131/blue-circle-h0HTbH-clipart.png'});
+graph.addNode(4, {url: 'file:///home/joeboadi/Desktop/Interdisciplinary_Project/JoeBoadi.github.io/img/red_circle.png'});
+graph.addNode(5, {url: 'file:///home/joeboadi/Desktop/Interdisciplinary_Project/JoeBoadi.github.io/img/red_circle.png'});
+graph.addNode(6, {url: 'file:///home/joeboadi/Desktop/Interdisciplinary_Project/JoeBoadi.github.io/img/red_circle.png'});
 graph.addNode(7, '');
 graph.addNode(8, '');
 graph.addNode(9, '');
 graph.addNode(10, '');
 graph.addNode(11, '');
-graph.addNode (12, '');
-graph.addNode (13, '');
+graph.addNode(12, '');
+graph.addNode(13, '');
+graph.addNode(14, '');
+graph.addNode(15, '');
+graph.addNode(16, '');
+graph.addNode(17, '');
+graph.addNode(18, ''); 
+graph.addNode(19, '');
+graph.addNode(20, '');
 
 
 graph.addLink(1, 2);
 graph.addLink(2, 3);
-graph.addLink(1, 4);
+graph.addLink(3, 4);
+graph.addLink(3, 5);
+graph.addLink(3, 6);
+//graph.addLink(2, 7);
+//graph.addLink(2, 8);
+/*graph.addLink(1, 4);
 graph.addLink(4, 5);
 graph.addLink(5, 6);
 graph.addLink(4, 7);
@@ -55,9 +66,9 @@ graph.addLink(9, 10);
 graph.addLink(10,11);
 graph.addLink(13, 12);
 graph.addLink(12, 5);
-
+*/
 var graphics = Viva.Graph.View.svgGraphics();
-var nodeSize = 40;
+var nodeSize = 20;
 var no = 20;
  
 //I have to check whether I can use the text line or jquery to show the necessary data from the law data
@@ -82,13 +93,16 @@ var no = 20;
                 var ui = Viva.Graph.svg('image')
                      .attr('width', nodeSize)
                      .attr('height', nodeSize)
-                     .link('http://www.clipartkid.com/images/131/blue-circle-h0HTbH-clipart.png' + node.data);
+                     //.link('http://www.clipartkid.com/images/131/blue-circle-h0HTbH-clipart.png' + node.data);
+		     .link(node.data.url);
+						
+		var ui = Viva.Graph.svg('text')
+			.attr('width', nodeSize)
+			.attr ('height', nodeSize)
+			.text('' + node.data.url);
 			
-		//var ui = Viva.Graph.svg('text')
-			//.attr('width', nodeSize)
-			//.attr ('height', nodeSize)
-			//.text ('COME' + node.data);
-
+			ui.append('image');
+			ui.append('text');
 		//	text = Viva.Graph.svg ('text').text('come').attr('width' , node.data.size).attr('height', node.data.size).attr("id", '1');*/
                 $(ui).hover(function() { // mouse over
                     highlightRelatedNodes(node.id, true);
